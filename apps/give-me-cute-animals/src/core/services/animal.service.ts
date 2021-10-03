@@ -9,12 +9,12 @@ import { Animal } from '../models/animal.model';
 })
 export class AnimalService {
 
-  apiUrl: string = 'https://aws.random.cat/';
+  catApiUrl: string = 'https://aws.random.cat/';
 
  constructor(private http: HttpClient) { }
 
   getRandomCat(): Observable<Animal> {
-    return this.http.get(this.apiUrl + 'meow')
+    return this.http.get(this.catApiUrl + 'meow')
   }
 
 }
