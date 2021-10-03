@@ -5,8 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { HeaderModule } from './shared/components/header/header.module'
-import { FooterModule } from './shared/components/footer/footer.module'
+import { HomeModule } from './pages/home/home.module'
+import { FooterModule } from './shared/components/footer/footer.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,9 @@ import { FooterModule } from './shared/components/footer/footer.module'
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    HttpClientModule, 
     HeaderModule,
+    HomeModule,
     FooterModule
   ],
   providers: [],
