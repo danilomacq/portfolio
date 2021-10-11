@@ -1,0 +1,18 @@
+@import "~bootstrap/scss/bootstrap-grid";
+
+.animal-container {
+  background: rgba(166, 40, 51, 0.25);
+
+  .animal-row {
+    height: calc(100vh - 113px);
+
+    img {
+      border: 0;
+      outline: 0;
+    }
+
+    @include media-breakpoint-up(lg) {
+      height: calc(100vh - 38px);
+    }
+  }
+}
