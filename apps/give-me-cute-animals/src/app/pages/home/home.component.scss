@@ -1,0 +1,9 @@
+@import "~bootstrap/scss/bootstrap-grid";
+
+.animal-row {
+  height: calc(100vh - 113px);
+
+  @include media-breakpoint-up(lg) {
+    height: calc(100vh - 38px);
+  }
+}
