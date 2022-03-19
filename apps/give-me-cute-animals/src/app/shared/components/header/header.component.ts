@@ -20,10 +20,34 @@ export class HeaderComponent implements OnInit{
   }
 
   getAnimal(): void {
-    this.animalService.getRandomCat().subscribe((data:Animal) => {
-      this.animal = data;
-      this.animalChange.emit(this.animal);
-    })
+    const randomNumber = Math.floor(Math.random() * 3) + 1;
+
+    switch (randomNumber) {
+      case 1:
+        this.animalService.getRandomCat().subscribe((data:Animal) => {
+          this.animal = data;
+          this.animalChange.emit(this.animal);
+        })
+        break;
+      case 2:
+        this.animalService.getRandomDog().subscribe((data:Animal) => {
+          this.animal = data;
+          this.animalChange.emit(this.animal);
+        })
+        break;
+      case 3:
+        this.animalService.getRandomFox().subscribe((data:Animal) => {
+          this.animal = data;
+          this.animalChange.emit(this.animal);
+        })
+        break;
+      default:
+        this.animalService.getRandomCat().subscribe((data:Animal) => {
+          this.animal = data;
+          this.animalChange.emit(this.animal);
+        })
+        break;
+    }
   }
 
 }
