@@ -14,3 +14,17 @@
     }
   }
 }
+
+@media (prefers-color-scheme: light) {
+  .animal-row {
+    background-color: white;
+    color: black;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .animal-row {
+    background-color: black;
+    color: white;
+  }
+}
