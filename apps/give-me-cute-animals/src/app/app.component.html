@@ -1,4 +1,4 @@
 <app-header [animal]="animal" (changeAnimalEmitter)="changeAnimal()"></app-header>
 <main>
-<app-home [animal]="animal"></app-home>
+<app-home [isLoading]="isLoading" [animal]="animal" (changeAnimalEmitter)="changeAnimal()"></app-home>
 </main>
