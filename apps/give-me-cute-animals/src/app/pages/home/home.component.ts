@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Animal } from 'src/core/models/animal.model';
 
@@ -8,9 +8,11 @@ import { Animal } from 'src/core/models/animal.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
+  @Input() isLoading?: boolean;
   @Input() animal?: Animal;
+  @Output() changeAnimalEmitter = new EventEmitter();
 
-  constructor() { }
-  
+  changeAnimal(){
+    this.changeAnimalEmitter.emit();
+  }
 }

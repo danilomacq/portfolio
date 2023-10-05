@@ -1,5 +1,4 @@
 export interface Animal {
-    file?: string;
-    message?: string;
-    image?: string;
+    url?: string;
+    error?: boolean;
   }

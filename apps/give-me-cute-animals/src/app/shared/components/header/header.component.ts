@@ -1,5 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AnimalService } from 'src/core/services/animal.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Animal } from 'src/core/models/animal.model';
 
@@ -8,46 +7,11 @@ import { Animal } from 'src/core/models/animal.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit{
-
+export class HeaderComponent{
   @Input() animal?: Animal;
-  @Output() animalChange = new EventEmitter<Animal>();
+  @Output() changeAnimalEmitter = new EventEmitter();
 
-  constructor(private animalService: AnimalService) { }
-
-  ngOnInit(): void {
-    this.getAnimal();
+  changeAnimal(){
+    this.changeAnimalEmitter.emit();
   }
-
-  getAnimal(): void {
-    const randomNumber = Math.floor(Math.random() * 3) + 1;
-
-    switch (randomNumber) {
-      case 1:
-        this.animalService.getRandomCat().subscribe((data:Animal) => {
-          this.animal = data;
-          this.animalChange.emit(this.animal);
-        })
-        break;
-      case 2:
-        this.animalService.getRandomDog().subscribe((data:Animal) => {
-          this.animal = data;
-          this.animalChange.emit(this.animal);
-        })
-        break;
-      case 3:
-        this.animalService.getRandomFox().subscribe((data:Animal) => {
-          this.animal = data;
-          this.animalChange.emit(this.animal);
-        })
-        break;
-      default:
-        this.animalService.getRandomCat().subscribe((data:Animal) => {
-          this.animal = data;
-          this.animalChange.emit(this.animal);
-        })
-        break;
-    }
-  }
-
 }
