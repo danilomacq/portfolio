@@ -1,11 +1,9 @@
-<nav class="container-fluid bg-success">
-    <div class="row align-items-center">
-        <div class="col-12 col-lg-3 mt-3 mt-lg-0 text-center text-lg-left">
-            <h1>give me cute animals</h1>
-        </div>
-        <div class="col-12 col-lg-9 text-center text-lg-right">
-            <a (click)="changeAnimal()" class="d-none d-lg-inline-block btn btn-link text-white">show me another one</a>
-            <a (click)="changeAnimal()" class="d-inline-block d-lg-none btn btn-danger my-3 text-white">show me another one</a>
-        </div>    
+<nav class="navbar bg-base-300 justify-between">
+    <div class="ml-1 md:ml-3">
+        <a class="btn btn-ghost"><h1 class="text-sm md:text-lg">give me cute animals</h1></a>
+    </div>
+    <div class="mr-1 md:mr-3">
+        <a (click)="changeAnimal()" class="btn btn-sm text-xs md:text-sm btn-primary hidden sm:flex">show me another one</a>
+        <a (click)="changeAnimal()" class="btn btn-sm text-sm btn-link flex sm:hidden">show me another one</a>
     </div>
 </nav>

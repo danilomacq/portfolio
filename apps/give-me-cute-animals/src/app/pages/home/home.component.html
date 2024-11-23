@@ -1,8 +1,8 @@
-<section class="container-fluid animal-container">
-    <div class="row animal-row align-items-center justify-content-center">
+<section class="flex min-h-[90dvh] items-center justify-center">
+    <div class="">
         <div class="col-12" *ngIf="animal?.url && !isLoading; else loading">
-            <div role="button" (click)="changeAnimal()" class="card mx-auto" style="width: 18rem;">
-                <img src="{{ animal?.url }}" class="card-img-top" alt="">
+            <div role="button" (click)="changeAnimal()" class="w-72">
+                <img class="rounded-box mx-auto" src="{{ animal?.url }}" alt="">
             </div>
         </div>
     </div>
@@ -10,14 +10,14 @@
 
 <ng-template #loading>
     <ng-container *ngIf="isLoading; else error;">
-        <div class="col-12 text-center">
-            <p>Loading...</p>
+        <div>
+            <span class="loading loading-dots loading-md"></span>
         </div>
     </ng-container>
 </ng-template>
 
 <ng-template #error>
-    <div class="col-12 text-center">
+    <div>
         <div role="button" (click)="changeAnimal()">
             <p>Error :(</p>
             <p>Please, click here to get another cute animal image.</p>
