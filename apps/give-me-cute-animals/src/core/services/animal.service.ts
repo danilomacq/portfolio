@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { Animal } from '../models/animal.model';
@@ -12,59 +12,36 @@ export class AnimalService {
 
  constructor(private http: HttpClient) { }
 
-  getRandomCat(): Observable<Animal> {
-    return this.http.get('https://api.thecatapi.com/v1/images/search').pipe(
+  private fetchAnimal(url: string, imageKey: string): Observable<Animal> {
+    return this.http.get(url).pipe(
       map((response: any) => {
-        let cat: Animal;
-        if(response && response[0].url){
-          cat = { url: response[0].url };
-        }else{
-          cat = { error: true };
-        }
-        return cat;
-      })
+        // If the response is an array, use the first element
+        const data = Array.isArray(response) ? response[0] : response;
+        // Extract the nested property based on the imageKey
+        const imageUrl = this.getNestedValue(data, imageKey);
+        return imageUrl ? { url: imageUrl } : { error: true };
+      }),
+      catchError(() => of({ error: true })) // Handle HTTP errors
     );
+  }
+
+  private getNestedValue(obj: any, path: string): any {
+    return path.split('.').reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), obj);
+  }
+
+  getRandomCat(): Observable<Animal> {
+    return this.fetchAnimal('https://api.thecatapi.com/v1/images/search', 'url');
   }
 
   getRandomDog(): Observable<Animal> {
-    return this.http.get('https://dog.ceo/api/breeds/image/random').pipe(
-      map((response: any) => {
-        let dog: Animal;
-        if(response && response.message){
-          dog = { url: response.message };
-        }else{
-          dog = { error: true };
-        }
-        return dog;
-      })
-    );
+    return this.fetchAnimal('https://dog.ceo/api/breeds/image/random', 'message');
   }
 
   getRandomFox(): Observable<Animal> {
-    return this.http.get('https://randomfox.ca/floof').pipe(
-      map((response: any) => {
-        let fox: Animal;
-        if(response && response.image){
-          fox = { url: response.image };
-        }else{
-          fox = { error: true };
-        }
-        return fox;
-      })
-    );
+    return this.fetchAnimal('https://randomfox.ca/floof', 'image');
   }
 
-  getRandomRaccoon(): Observable<Animal> {
-    return this.http.get('https://some-random-api.com/animal/raccoon').pipe(
-      map((response: any) => {
-        let raccoon: Animal;
-        if(response && response.image){
-          raccoon = { url: response.image };
-        }else{
-          raccoon = { error: true };
-        }
-        return raccoon;
-      })
-    );
+  getRandomPanda(): Observable<Animal> {
+    return this.fetchAnimal('https://some-random-api.com/animal/panda', 'image');
   }
 }
