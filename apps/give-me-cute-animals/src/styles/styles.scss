@@ -1,7 +1,7 @@
 /* Global Styles */
 
-@import "colors";
 @import "typography";
 
-/* Importing Bootstrap SCSS file. */
-@import "node_modules/bootstrap/scss/bootstrap";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 
 import { Animal } from 'src/core/models/animal.model';
 import { AnimalService } from 'src/core/services/animal.service';
@@ -21,39 +22,46 @@ export class AppComponent {
   changeAnimal(): void {
     this.isLoading = true;
 
-    const randomNumber = Math.floor(Math.random() * 4) + 1;
+    const animalFetchers = [
+      () => this.animalService.getRandomCat(),
+      () => this.animalService.getRandomDog(),
+      () => this.animalService.getRandomFox(),
+      () => this.animalService.getRandomPanda(),
+    ];
+    
+    const randomNumber = Math.floor(Math.random() * animalFetchers.length);
+    
+    this.isLoading = true;
 
-    switch (randomNumber) {
-      case 1:
-        this.animalService.getRandomCat().subscribe((data:Animal) => {
+    animalFetchers[randomNumber]().subscribe(async (data: Animal) => {
+      if (data.url) {
+        try {
+          await this.preloadImage(data.url);
           this.animal = data;
-          this.isLoading = false;
-        })
-        break;
-      case 2:
-        this.animalService.getRandomDog().subscribe((data:Animal) => {
-          this.animal = data;
-          this.isLoading = false;
-        })
-        break;
-      case 3:
-        this.animalService.getRandomFox().subscribe((data:Animal) => {
-          this.animal = data;
-          this.isLoading = false;
-        })
-        break;
-      case 4:
-        this.animalService.getRandomRaccoon().subscribe((data:Animal) => {
-          this.animal = data;
-          this.isLoading = false;
-        })
-        break;
-      default:
-        this.animalService.getRandomCat().subscribe((data:Animal) => {
-          this.animal = data;
-          this.isLoading = false;
-        })
-        break;
-    }
+        } catch (error) {
+          console.error('Image failed to load:', error);
+          this.animal = { error: true };
+        }
+      } else {
+        this.animal = { error: true };
+      }
+      this.isLoading = false;
+    });
+  }
+
+  preloadImage(url: string): Observable<string> {
+    return new Observable((observer) => {
+      const img = new Image();
+      img.src = url;
+  
+      img.onload = () => {
+        observer.next(url);
+        observer.complete();
+      };
+  
+      img.onerror = (error) => {
+        observer.error('Image failed to load');
+      };
+    });
   }
 }
