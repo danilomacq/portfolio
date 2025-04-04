@@ -1,0 +1,26 @@
+<section class="flex min-h-[90dvh] items-center justify-center">
+    <div class="">
+        <div class="col-12" *ngIf="animal?.url && !isLoading; else loading">
+            <div role="button" (click)="changeAnimal()" class="w-72">
+                <img class="rounded-box mx-auto" src="{{ animal?.url }}" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<ng-template #loading>
+    <ng-container *ngIf="isLoading; else error;">
+        <div>
+            <span class="loading loading-dots loading-md"></span>
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-template #error>
+    <div>
+        <div role="button" (click)="changeAnimal()">
+            <p>Error :(</p>
+            <p>Please, click here to get another cute animal image.</p>
+        </div>
+    </div>
+</ng-template>
