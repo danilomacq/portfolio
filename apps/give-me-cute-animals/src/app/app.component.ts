@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-
-import { Animal } from 'src/core/models/animal.model';
-import { AnimalService } from 'src/core/services/animal.service';
+import { Animal } from '../core/models/animal.model';
+import { AnimalService } from '../core/services/animal.service';
+import { HomeComponent } from './pages/home/home.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrl: './app.component.css',
+  imports: [HeaderComponent, HomeComponent],
+  standalone: true,
+  providers: [AnimalService]
 })
 export class AppComponent {
   animal?: Animal;
@@ -28,9 +32,9 @@ export class AppComponent {
       () => this.animalService.getRandomFox(),
       () => this.animalService.getRandomPanda(),
     ];
-    
+
     const randomNumber = Math.floor(Math.random() * animalFetchers.length);
-    
+
     this.isLoading = true;
 
     animalFetchers[randomNumber]().subscribe(async (data: Animal) => {
@@ -53,12 +57,12 @@ export class AppComponent {
     return new Observable((observer) => {
       const img = new Image();
       img.src = url;
-  
+
       img.onload = () => {
         observer.next(url);
         observer.complete();
       };
-  
+
       img.onerror = (error) => {
         observer.error('Image failed to load');
       };

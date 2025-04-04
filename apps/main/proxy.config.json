@@ -1,0 +1,7 @@
+{
+    "/give-me-cute-animals": {
+        "target": "http://localhost:4300",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

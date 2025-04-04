@@ -1,17 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { Animal } from 'src/core/models/animal.model';
+import { Animal } from '../../../../core/models/animal.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  standalone: true,
+  imports: [CommonModule]
 })
-export class HeaderComponent{
+export class HeaderComponent {
   @Input() animal?: Animal;
   @Output() changeAnimalEmitter = new EventEmitter();
 
-  changeAnimal(){
+  changeAnimal() {
     this.changeAnimalEmitter.emit();
   }
 }

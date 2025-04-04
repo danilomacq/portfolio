@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { Animal } from '../models/animal.model';
@@ -10,7 +10,7 @@ import { Animal } from '../models/animal.model';
 })
 export class AnimalService {
 
- constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   private fetchAnimal(url: string, imageKey: string): Observable<Animal> {
     return this.http.get(url).pipe(
